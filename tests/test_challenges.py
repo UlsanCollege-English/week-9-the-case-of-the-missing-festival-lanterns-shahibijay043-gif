@@ -1,13 +1,3 @@
-"""Starter tests for Week 9 Homework.
-
-Run with:
-
-    pytest -q
-
-These tests are a starter set. You must add at least one meaningful test of
-your own before submitting.
-"""
-
 from src.challenges import analyze_lanterns
 
 
@@ -121,9 +111,15 @@ def test_analyze_lanterns_ignores_unexpected_lantern_for_wrong_section():
     assert result["wrong_section_lanterns"] == {}
 
 
-# TODO: Add at least one more meaningful test of your own before submitting.
-# Good options:
-# - all expected lanterns are present and in the correct section
-# - the log is empty but expected_lanterns is not empty
-# - the same lantern appears three times
-# - an expected lantern appears once correctly and once in the wrong section
+def test_all_lanterns_correct():
+    expected_lanterns = {"a", "b"}
+    lantern_log = [
+        ("a", "X"),
+        ("b", "Y"),
+    ]
+    correct_sections = {"a": "X", "b": "Y"}
+
+    result = analyze_lanterns(expected_lanterns, lantern_log, correct_sections)
+
+    assert result["missing_lanterns"] == set()
+    assert result["wrong_section_lanterns"] == {}
