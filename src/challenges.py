@@ -1,3 +1,5 @@
+"""Weekly Coding — Lantern Festival Analysis System."""
+
 from __future__ import annotations
 
 
@@ -10,9 +12,9 @@ def analyze_lanterns(
     seen_lanterns: set[str] = set()
     duplicate_lanterns: set[str] = set()
 
-    count_by_section: dict[str, int] = {}
+    section_counts: dict[str, int] = {}
 
-    wrong_section_lanterns: dict[str, dict[str, str]] = {}
+    misplaced_lanterns: dict[str, dict[str, str]] = {}
 
     for lantern_name, actual_section in lantern_log:
 
@@ -21,17 +23,19 @@ def analyze_lanterns(
 
         seen_lanterns.add(lantern_name)
 
-        count_by_section[actual_section] = (
-            count_by_section.get(actual_section, 0) + 1
+        section_counts[actual_section] = (
+            section_counts.get(actual_section, 0) + 1
         )
 
         if lantern_name in correct_sections:
 
-            expected_section = correct_sections[lantern_name]
+            expected_section = correct_sections[
+                lantern_name
+            ]
 
             if actual_section != expected_section:
 
-                wrong_section_lanterns[lantern_name] = {
+                misplaced_lanterns[lantern_name] = {
                     "expected": expected_section,
                     "actual": actual_section,
                 }
@@ -49,6 +53,6 @@ def analyze_lanterns(
         "missing_lanterns": missing_lanterns,
         "unexpected_lanterns": unexpected_lanterns,
         "duplicate_lanterns": duplicate_lanterns,
-        "count_by_section": count_by_section,
-        "wrong_section_lanterns": wrong_section_lanterns,
+        "count_by_section": section_counts,
+        "wrong_section_lanterns": misplaced_lanterns,
     }
